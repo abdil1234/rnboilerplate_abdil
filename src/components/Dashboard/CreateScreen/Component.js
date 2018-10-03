@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, StyleSheet } from 'react-native'
+import { StyleSheet } from 'react-native'
 import { withNavigation } from 'react-navigation'
 
 import {
@@ -8,8 +8,13 @@ import {
   Item,
   Input,
   Header,
+  Text,
   Title,
   Body,
+  Icon,
+  Content,
+  Left,
+  Button,
   Toast
 } from 'native-base'
 
@@ -21,10 +26,6 @@ class BiodataCreateComponent extends Component {
 
     this.handleNameChange = (name) => {
       this.setState({name: name})
-    }
-
-    this.handlePasswordChange = (password) => {
-      this.setState({password: password})
     }
 
     this.handleCreate = () => {
@@ -41,24 +42,32 @@ class BiodataCreateComponent extends Component {
   render() {
     return (
       <Container style={styles.container} >
-        <Header style={{ backgroundColor: "white" }} androidStatusBarColor='#000'>          
+        <Header style={{ backgroundColor: "white" }} androidStatusBarColor='#000'>   
+          <Left>
+            <Button transparent onPress={() => this.props.navigation.navigate("BiodataList")}>
+              <Icon style={{color:"black"}} name="arrow-back" />
+            </Button>
+          </Left>       
           <Body>
             <Title style={{ color: "black" }}>Tambah Biodata</Title>
           </Body>
         </Header>
-        <Form>
-          <Item>
-            <Input 
-              placeholder="Name" 
-              onChangeText={this.handleNameChange}
-            />
-          </Item>
-          
-          <Button
-            onPress={()=> this.handleCreate()}
-            color= "rgb(52, 167, 138)"
-            title="Tambah" />
-        </Form>
+        <Content padder>
+          <Form>
+            <Item>
+              <Input 
+                placeholder="Name" 
+                onChangeText={this.handleNameChange}
+              />
+            </Item>
+            
+            <Button
+              onPress={()=> this.handleCreate()}
+              style={{backgroundColor: "rgb(52, 167, 138)"}} full>
+                <Text>Tambah</Text>
+            </Button>
+          </Form>
+        </Content>
       </Container>
     )
   }

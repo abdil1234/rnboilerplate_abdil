@@ -7,3 +7,4 @@ instalasi:
 -npm install
 -react-native link
 -react-native run-android/react-native run-ios
+

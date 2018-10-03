@@ -1,7 +1,7 @@
 import React from "react";
 import { FlatList, StyleSheet, Alert, Platform } from 'react-native'
 import { withNavigation } from 'react-navigation';
-import { Container, Header, Title, Left, Icon, Right, View,Button, Body, Content,Text, Card,List , ListItem, H3, Fab, Toast } from "native-base";
+import { Container, Header, Title, Left, Icon, Right, CardItem,Button, Body, Content,Text, Card,List , ListItem, H3, Fab, Toast } from "native-base";
 
 class DashboardComponent extends React.Component { 
 
@@ -21,18 +21,19 @@ class DashboardComponent extends React.Component {
   }
 
   _renderItem = ({item}) => (
-    <ListItem>     
-      <Left>
-        <Text>{item.name}</Text>
-      </Left>
-      
-      <Button  small info onPress = {() => this.handleEdit(item.id, item.name)} >
-          <Text>Ubah</Text>
-      </Button>
-      <Button  small danger onPress = {() => this.handleHapus(item.id)} >
-        <Icon name="trash" />
-      </Button> 
-    </ListItem>
+    <Card>
+      <CardItem>
+        <Left>
+          <Text>{item.name}</Text>
+        </Left>
+        <Button  small style={{ backgroundColor: "#007762" }} onPress = {() => this.handleEdit(item.id, item.name)} >
+            <Text>Ubah</Text>
+        </Button>
+        <Button  small style={{ backgroundColor: "#007762" }} onPress = {() => this.handleHapus(item.id)} >
+          <Icon name="trash" />
+        </Button> 
+      </CardItem>
+    </Card>
   );
 
   handleCreate(){
@@ -62,15 +63,13 @@ class DashboardComponent extends React.Component {
             <H3>List Biodata</H3>
           </Card>
 
-          <Card>
-            <List>
-              <FlatList
-                data={this.props.biodata}
-                keyExtractor={(item, index) => item.name}
-                renderItem={this._renderItem}
-              />
-            </List>
-          </Card>
+          <List>
+            <FlatList
+              data={this.props.biodata}
+              keyExtractor={(item, index) => item.name}
+              renderItem={this._renderItem}
+            />
+          </List>
           
         </Content>
 

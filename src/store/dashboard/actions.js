@@ -24,6 +24,13 @@ export const getData = () => {
   }   
 }
 
+export const getDataKosong = () => {  
+  return (dispatch) => {
+    let dataKosong = [];
+    dispatch(dataSuccess(dataKosong));
+  }   
+}
+
 export const addData = (nama) => {  
   return (dispatch, getState) => {
     let newData = [...getState().biodata.data,{id:getState().biodata.data.length+1, name:nama}];

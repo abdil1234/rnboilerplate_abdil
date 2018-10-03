@@ -1,7 +1,7 @@
 import React,{ Component } from 'react';
 
 import DashboardComponent from './Component';
-import { getData, deleteData } from '../../store/dashboard/actions';
+import { getData, deleteData, getDataKosong } from '../../store/dashboard/actions';
 
 import PropTypes from 'prop-types';
 
@@ -11,6 +11,10 @@ class DashboardContainer extends Component {
     
     componentDidMount(){
         this.props.data();
+    }
+
+    componentWillUnmount() {
+        this.props.kosongData();
     }
 
     render() {
@@ -30,10 +34,13 @@ const mapStateToProps = state =>({
 const mapDispatchToProps = {
     data: getData,
     hapusData: deleteData,
+    kosongData: getDataKosong,
 }
 
 DashboardContainer.propTypes = {
     data: PropTypes.func.isRequired,   
+    hapusData: PropTypes.func.isRequired,   
+    kosongData: PropTypes.func.isRequired,   
     biodata: PropTypes.array.isRequired   
 };
 

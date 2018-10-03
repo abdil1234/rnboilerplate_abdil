@@ -1,19 +1,48 @@
 import React from "react";
-import { FlatList } from 'react-native'
+import { FlatList, StyleSheet, Alert, Platform } from 'react-native'
+import { withNavigation } from 'react-navigation';
+import { Container, Header, Title, Left, Icon, Right, View,Button, Body, Content,Text, Card,List , ListItem, H3, Fab, Toast } from "native-base";
 
-import { Container, Header, Title, Left, Icon, Right, Button, Body, Content,Text, Card,List , ListItem, H3 } from "native-base";
+class DashboardComponent extends React.Component { 
 
-export default class DashboardComponent extends React.Component { 
+  handleHapus = (id) =>{
+    this.props.actionHapus(id)
+    Toast.show({
+      text: 'Berhasil Dihapus',
+      buttonText: 'Ok'
+    })
+  }
+
+  handleEdit(id, nama){
+    this.props.navigation.navigate('BiodataUbah', {
+      id: id,
+      nama: nama
+    })
+  }
 
   _renderItem = ({item}) => (
-    <ListItem>
-      <Text> {item.name} </Text>
+    <ListItem>     
+      <Left>
+        <Text>{item.name}</Text>
+      </Left>
+      
+      <Button  small info onPress = {() => this.handleEdit(item.id, item.name)} >
+          <Text>Ubah</Text>
+      </Button>
+      <Button  small danger onPress = {() => this.handleHapus(item.id)} >
+        <Icon name="trash" />
+      </Button> 
     </ListItem>
   );
 
+  handleCreate(){
+    this.props.navigation.navigate('BiodataCreate')
+    
+  }
+
   render() {
     return (
-      <Container>
+      <Container style={ styles.container }>
         <Header style={{ backgroundColor: "rgb(52, 167, 138)" }} androidStatusBarColor='#000'>
           <Left>
             <Button
@@ -45,7 +74,7 @@ export default class DashboardComponent extends React.Component {
           
         </Content>
 
-        <Fab onPress={()=> this.handleCreate()} >
+        <Fab style={{ backgroundColor: "rgb(52, 167, 138)" }} onPress={()=> this.handleCreate()} >
           <Icon name="add" />
         </Fab>
 
@@ -53,3 +82,11 @@ export default class DashboardComponent extends React.Component {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1
+  }
+});
+
+export default withNavigation(DashboardComponent);

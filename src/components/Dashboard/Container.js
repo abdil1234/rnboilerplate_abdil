@@ -1,7 +1,7 @@
 import React,{ Component } from 'react';
 
 import DashboardComponent from './Component';
-import { getData } from '../../store/dashboard/actions';
+import { getData, deleteData } from '../../store/dashboard/actions';
 
 import PropTypes from 'prop-types';
 
@@ -15,7 +15,10 @@ class DashboardContainer extends Component {
 
     render() {
         return(     
-            <DashboardComponent biodata = {this.props.biodata} />
+            <DashboardComponent 
+                actionHapus = { this.props.hapusData } 
+                biodata = {this.props.biodata} 
+            />
         ); 
     }
 }
@@ -26,6 +29,7 @@ const mapStateToProps = state =>({
 
 const mapDispatchToProps = {
     data: getData,
+    hapusData: deleteData,
 }
 
 DashboardContainer.propTypes = {

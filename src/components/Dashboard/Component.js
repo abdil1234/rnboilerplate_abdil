@@ -1,37 +1,53 @@
 import React from "react";
-import { FlatList, StyleSheet, Alert, Platform } from 'react-native'
+import { FlatList, StyleSheet, ListView } from 'react-native'
 import { withNavigation } from 'react-navigation';
 import { Container, Header, Title, Left, Icon, Right, CardItem,Button, Body, Content,Text, Card,List , ListItem, H3, Fab, Toast } from "native-base";
 
 class DashboardComponent extends React.Component { 
 
-  handleHapus = (id) =>{
-    this.props.actionHapus(id)
+  constructor(props) {
+    super(props);
+    this.ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });  
+
+    this.handleEdit = this.handleEdit.bind(this);
+    this.handleHapus = this.handleHapus.bind(this);
+    this._renderItem = this._renderItem.bind(this);
+
+  }
+
+  handleHapus = (id, secId, rowId, rowMap) =>{
+
+    rowMap[`${secId}${rowId}`].props.closeRow();    
+    this.props.actionHapus(id);
+
     Toast.show({
       text: 'Berhasil Dihapus',
       buttonText: 'Ok'
     })
   }
 
-  handleEdit(id, nama){
+  handleEdit = (data, secId, rowId, rowMap) => {
+
+    rowMap[`${secId}${rowId}`].props.closeRow(); 
+
     this.props.navigation.navigate('BiodataUbah', {
-      id: id,
-      nama: nama
+      id: data.id,
+      nama: data.name
     })
   }
 
-  _renderItem = ({item}) => (
+  _renderItem = item => (
     <Card>
       <CardItem>
         <Left>
           <Text>{item.name}</Text>
         </Left>
-        <Button  small style={{ backgroundColor: "#007762" }} onPress = {() => this.handleEdit(item.id, item.name)} >
+        {/* <Button  small style={{ backgroundColor: "#007762" }} onPress = {() => this.handleEdit(item.id, item.name)} >
             <Text>Ubah</Text>
         </Button>
         <Button  small style={{ backgroundColor: "#007762" }} onPress = {() => this.handleHapus(item.id)} >
           <Icon name="trash" />
-        </Button> 
+        </Button>  */}
       </CardItem>
     </Card>
   );
@@ -63,13 +79,21 @@ class DashboardComponent extends React.Component {
             <H3>List Biodata</H3>
           </Card>
 
-          <List>
-            <FlatList
-              data={this.props.biodata}
-              keyExtractor={(item, index) => item.name}
-              renderItem={this._renderItem}
-            />
-          </List>
+          <List
+            leftOpenValue={75}
+            rightOpenValue={-75}
+            dataSource={this.ds.cloneWithRows(this.props.biodata)}
+            renderRow={ (item) => this._renderItem(item) }
+            renderLeftHiddenRow={ (data, secId, rowId, rowMap) =>              
+              <Button style={{ margin: 5 }} success onPress={ () => this.handleEdit(data, secId, rowId, rowMap) }>
+                <Icon active name="information-circle" />
+              </Button>}
+
+            renderRightHiddenRow={ (data, secId, rowId, rowMap) =>
+              <Button style={{ margin: 5 }} danger onPress={() => this.handleHapus(data.id, secId, rowId, rowMap)}>
+                <Icon active name="trash" />
+              </Button>}
+          />
           
         </Content>
 

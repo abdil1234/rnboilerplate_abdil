@@ -21,7 +21,7 @@ class DashboardContainer extends Component {
         return(     
             <DashboardComponent 
                 actionHapus = { this.props.hapusData } 
-                biodata = {this.props.biodata} 
+                biodata = { this.props.biodata } 
             />
         ); 
     }

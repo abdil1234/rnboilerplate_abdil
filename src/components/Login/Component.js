@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
 import { Container, 
-    Header, 
     Content, 
     Form, 
     Item, 
@@ -9,10 +8,7 @@ import { Container,
     Button, 
     Text, 
     Label, 
-    Left,
     H3,
-    Body,
-    Title
  } from 'native-base';
 
 class FormComponent extends Component {

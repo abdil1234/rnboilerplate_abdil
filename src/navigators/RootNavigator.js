@@ -41,7 +41,7 @@ const RootNavigator = StackNavigator(
     },
   },  
   {
-    initialRouteName: 'HalamanDepan',
+    initialRouteName: 'Login',
     headerMode: 'none'
   }
 )

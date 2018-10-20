@@ -28,8 +28,8 @@ export const loginUser = (username, password) => {
     dispatch(sessionLoading())
     axios({
         method: 'post',
-        url: 'http://ws.uinsu.ac.id/Portal/OtentikasiUser',
-        headers: {'UINSU-KEY': 'gg48ks88og04kco4k48sw4wos8k8s4kwkkkcwo0g'},
+        url: 'YOUR-ENDPOIND',
+        headers: {'YOUR-KEY': 'YOUR-API-KEY'},
         data: {
           username: username,
           password: password
@@ -51,8 +51,8 @@ export const ubahPassword = (passwordLama, passwordBaru) => {
     // dispatch(sessionLoading())
     axios({
         method: 'post',
-        url: 'http://ws.uinsu.ac.id/Portal/UpdatePassword',
-        headers: {'UINSU-KEY': '8okkc8wsws4sso8ww4wscw8ssg4cc0c4kccscc0o'},
+        url: 'YOUR-ENDPOID',
+        headers: {'YOUR-KEY': 'YOUR-API-KEY'},
         data: {
           username: getState().session.user.OtentikasiUser[0].referensi_id,
           password_lama: passwordLama,

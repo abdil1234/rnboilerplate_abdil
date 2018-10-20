@@ -5,7 +5,7 @@ import BiodataCreate from '../components/Dashboard/CreateScreen'
 import BiodataUbah from '../components/Dashboard/UbahScreen'
 import Login  from '../components/Login'
 import HalamanDepan  from '../components/HalamanDepan'
-
+import UbahPassword  from '../components/UbahPassScreen'
 
 const RootNavigator = StackNavigator(
   {
@@ -26,11 +26,17 @@ const RootNavigator = StackNavigator(
       navigationOptions: {
         title: 'DashBoard'
       }
-    },    
-    BiodataCreate: {
-      screen: BiodataCreate,
+    }, 
+    BiodataList: {
+      screen: Dashboard,
       navigationOptions: {
-        title: 'Tambah Contact'
+        title: 'DashBoard'
+      }
+    },    
+    UbahPassword: {
+      screen: UbahPassword,
+      navigationOptions: {
+        title: 'Ubah Password'
       }
     },
     BiodataUbah: {
